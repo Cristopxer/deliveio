@@ -1,8 +1,36 @@
+import { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { ArrowRightIcon } from "react-native-heroicons/outline";
+import sanityClient from "../sanity";
 import RestaurantCard from "./RestaurantCard";
 
 const FeaturedRow = ({ title, description, id }) => {
+  const [restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+    sanityClient
+      .fetch(
+        `
+    *[_type == 'featured' && _id == $id] {
+      ...,
+      restaurants[]->{
+        ...,
+        dishes[]->,
+        type->{
+          name
+        }
+      }
+    }[0]
+    `,
+        { id }
+      )
+      .then((data) => {
+        setRestaurants(data?.restaurants);
+      });
+  }, []);
+
+  console.log(restaurants);
+
   return (
     <View>
       <View className="mt-4 flex-row items-center justify-between px-4">
@@ -19,54 +47,21 @@ const FeaturedRow = ({ title, description, id }) => {
         className="pt-4"
       >
         {/* Restaurant Card */}
-        <RestaurantCard
-          id={123}
-          imgUrl="https://imgs.search.brave.com/n933zoxpQd--obX7HCkSDRzeM0CRPvnXUewE4OiCQSE/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9kaW5p/bmdwbGF5Ym9vay5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjAvMDEvUDE3MDAx/MzIuanBn"
-          title="Yo! Chicken"
-          ratting={4.5}
-          genre="Fast Food"
-          address="234 Main St"
-          short_description="Dummy description"
-          dishes={[]}
-          long={20}
-          lat={1233}
-        />
-        <RestaurantCard
-          id={123}
-          imgUrl="https://imgs.search.brave.com/n933zoxpQd--obX7HCkSDRzeM0CRPvnXUewE4OiCQSE/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9kaW5p/bmdwbGF5Ym9vay5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjAvMDEvUDE3MDAx/MzIuanBn"
-          title="Yo! Chicken"
-          ratting={4.5}
-          genre="Fast Food"
-          address="234 Main St"
-          short_description="Dummy description"
-          dishes={[]}
-          long={20}
-          lat={1233}
-        />
-        <RestaurantCard
-          id={123}
-          imgUrl="https://imgs.search.brave.com/n933zoxpQd--obX7HCkSDRzeM0CRPvnXUewE4OiCQSE/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9kaW5p/bmdwbGF5Ym9vay5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjAvMDEvUDE3MDAx/MzIuanBn"
-          title="Yo! Chicken"
-          ratting={4.5}
-          genre="Fast Food"
-          address="234 Main St"
-          short_description="Dummy description"
-          dishes={[]}
-          long={20}
-          lat={1233}
-        />
-        <RestaurantCard
-          id={123}
-          imgUrl="https://imgs.search.brave.com/n933zoxpQd--obX7HCkSDRzeM0CRPvnXUewE4OiCQSE/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9kaW5p/bmdwbGF5Ym9vay5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjAvMDEvUDE3MDAx/MzIuanBn"
-          title="Yo! Chicken"
-          ratting={4.5}
-          genre="Fast Food"
-          address="234 Main St"
-          short_description="Dummy description"
-          dishes={[]}
-          long={20}
-          lat={1233}
-        />
+        {restaurants?.map((restaurant) => (
+          <RestaurantCard
+            key={restaurant._id}
+            id={restaurant._id}
+            imgUrl={restaurant.image}
+            title={restaurant.name}
+            ratting={restaurant.rating}
+            genre={restaurant.type?.name}
+            address={restaurant.address}
+            short_description={restaurant.short_description}
+            dishes={restaurant.dishes}
+            long={restaurant.long}
+            lat={restaurant.lat}
+          />
+        ))}
       </ScrollView>
     </View>
   );
