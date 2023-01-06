@@ -1,24 +1,29 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import Currency from "react-currency-formatter";
+import {
+  formatCurrency,
+  getSupportedCurrencies,
+} from "react-native-format-currency";
 import { urlFor } from "../sanity";
 import { useState } from "react";
 import { MinusCircleIcon, PlusCircleIcon } from "react-native-heroicons/solid";
 
 const DishRow = ({ id, name, description, price, image }) => {
   const [isPress, setIsPress] = useState(false);
+  const priceFormatted = formatCurrency({ amount: price, code: "USD" });
+
   return (
     <>
       <TouchableOpacity
         onPress={() => setIsPress(!isPress)}
-        className={`bg-white border p-4 border-gray-200 ${isPress && "border-b-0"}`}
+        className={`bg-white border p-4 border-gray-200 ${
+          isPress && "border-b-0"
+        }`}
       >
         <View className="flex-row">
           <View className="flex-1 pr-2">
             <Text className="text-lg mb-1">{name}</Text>
             <Text className="text-gray-400">{description}</Text>
-            <Text className="text-gray-400 mt-2">
-              <Currency quantity={price} />
-            </Text>
+            <Text className="text-gray-400 mt-2">{priceFormatted[0]}</Text>
           </View>
           <View>
             <Image
