@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import {
   View,
   Text,
@@ -14,12 +14,17 @@ import {
   QuestionMarkCircleIcon,
 } from "react-native-heroicons/outline";
 import { MapPinIcon, StarIcon } from "react-native-heroicons/solid";
+import { useDispatch, useSelector } from "react-redux";
 import BasketIcon from "../components/BasketIcon";
 import DishRow from "../components/DishRow";
+import { selectBasketItems } from "../features/basketSlice";
+import { setRestaurant } from "../features/restaurantSlice";
 import { urlFor } from "../sanity";
 
 const RestaurantScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const basketItems = useSelector(selectBasketItems);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -41,6 +46,23 @@ const RestaurantScreen = () => {
       lat,
     },
   } = useRoute();
+
+  useEffect(() => {
+    dispatch(
+      setRestaurant({
+        id,
+        imgUrl,
+        title,
+        rating: ratting,
+        genre,
+        address,
+        short_description,
+        dishes,
+        long,
+        lat,
+      })
+    );
+  }, [dispatch]);
 
   return (
     <>
@@ -90,7 +112,7 @@ const RestaurantScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <View className="pb-28">
+        <View className={basketItems.length === 0 ? "" : "pb-28"}>
           <Text className="px-4 pt-4 mb-3 font-bold text-xl">Menu</Text>
 
           {/* Dish rows */}
