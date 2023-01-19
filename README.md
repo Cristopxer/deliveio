@@ -9,7 +9,7 @@ This UI is deployed in the expo store, you can scan the QR Code with the [Expo a
 
 The backend for the DeliverIO project is provided by the Sanity Framework which uses GROQ (Query Language) to make the data requests.
 
-Find the project here: (DeliverIO backend)[https://github.com/Cristopxer/deliverioAPI]
+Find the project here: [DeliverIO backend](https://github.com/Cristopxer/deliverioAPI)
 
 ## Technologies
 
