@@ -5,6 +5,11 @@ The main screen displays the available restaurants, where you can choose one to 
 
 This UI is deployed in the expo store, you can scan the QR Code with the [Expo app](https://expo.dev/client) here: [DeliverIO](https://expo.dev/@cristopxer/deliverio)
 
+## Backend
+
+The backend for the DeliverIO project is provided by the Sanity Framework which uses GROQ (Query Language) to make the data requests.
+
+Find the project here: (DeliverIO backend)[https://github.com/Cristopxer/deliverioAPI]
 
 ## Technologies
 
