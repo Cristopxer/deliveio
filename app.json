@@ -1,6 +1,7 @@
 {
   "expo": {
-    "name": "deliverio",
+    "name": "DeliverIO",
+    "description": "Discover the best restaurants on Uber Eats! Order food delivery and takeout from places near you.",
     "slug": "deliverio",
     "version": "1.0.0",
     "orientation": "portrait",

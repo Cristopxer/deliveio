@@ -67,7 +67,7 @@ const DeliveryScreen = () => {
         />
       </MapView>
 
-      <SafeAreaView className="bg-white flex-row items-center space-x-3 h-28">
+      <SafeAreaView className="bg-white flex-row items-center space-x-3 h-24">
         <Image
           source={{ uri: "https://links.papareact.com/wru" }}
           className="h-12 w-12 bg-gray-300 p-4 rounded-full ml-5"
