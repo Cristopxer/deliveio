@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "DeliverIO",
-    "description": "Discover the best restaurants on Uber Eats! Order food delivery and takeout from places near you.",
+    "description": "Discover the best restaurants on DeliverIO! Order food delivery and takeout from places near you.",
     "slug": "deliverio",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#00CCBB"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
